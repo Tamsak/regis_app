@@ -27,6 +27,11 @@ def register(request):
         return redirect('/user')
 def login(request):
     if request.method == 'POST':
+        try:
+            User.objects.get(email = request.POST['user_email']) 
+        except:
+            messages.warning(request, 'Email or password you entered is incorrect.') 
+            return redirect ('/')
         user = User.objects.get(email = request.POST['user_email'])
         if bcrypt.checkpw(request.POST['psw'].encode(), user.password.encode()):
             request.session['id'] = user.id
