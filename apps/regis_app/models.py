@@ -3,7 +3,7 @@ from django.db import models
 from django.core.validators import validate_email
 import bcrypt
 
-class BlogManager(models.Manager):
+class UserManager(models.Manager):
     def regis_validator(self, postData):
         errors = {}
         if len(postData['first_name']) < 2:
@@ -27,4 +27,4 @@ class User(models.Model):
     password = models.CharField(max_length = 255)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
-    objects = BlogManager()
+    objects = UserManager()
